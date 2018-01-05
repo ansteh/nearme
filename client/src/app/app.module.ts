@@ -13,6 +13,7 @@ import { AppComponent } from './app.component';
 import { AuthComponent } from './auth/auth.component';
 import { DealsComponent } from './deals/deals.component';
 import { DealCardComponent } from './deals/deal-card/deal-card.component';
+import { DealsMapComponent } from './deals/deals-map/deals-map.component';
 
 
 @NgModule({
@@ -20,7 +21,8 @@ import { DealCardComponent } from './deals/deal-card/deal-card.component';
     AppComponent,
     AuthComponent,
     DealsComponent,
-    DealCardComponent
+    DealCardComponent,
+    DealsMapComponent
   ],
   imports: [
     BrowserModule,
