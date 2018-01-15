@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'deal-card',
@@ -6,6 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./deal-card.component.scss']
 })
 export class DealCardComponent implements OnInit {
+  @Input() deal: any;
+  @Output() edit: EventEmitter<any> = new EventEmitter();
 
   constructor() { }
 

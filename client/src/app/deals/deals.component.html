@@ -1,3 +1,75 @@
-<p>
-  deals works!
-</p>
+<div style="max-width: 900px; margin: auto;">
+  <div [ngStyle]="{ display: newDeal ? 'none' : 'block' }">
+    <div style="width: 100%; padding: 8px;">
+      <deals-map [deals]="deals" (dealClicked)="showDealEditor($event)"></deals-map>
+    </div>
+
+    <div>
+      <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="stretch center" fxLayoutAlign.xs="center stretch">
+        <deal-card [deal]="deal" *ngFor="let deal of deals" style="margin: 8px;" (edit)="showDealEditor(deal)"></deal-card>
+      </div>
+
+      <div fxLayout="row" fxLayoutAlign="start" style="margin: 8px 16px;">
+        <button mat-raised-button (click)="showDealEditor({})">
+          <mat-icon aria-label="Example icon-button with a heart icon">plus_one</mat-icon>
+          add
+        </button>
+      </div>
+    </div>
+
+    <!-- <div *ngFor="let deals of [{ type: 'store', items: stores }, { type: 'runner', items: runners }, { type: 'request', items: requests }]">
+      <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="stretch center" fxLayoutAlign.xs="center stretch">
+        <deal-card [deal]="deal" *ngFor="let deal of deals.items" style="margin: 8px;"></deal-card>
+      </div>
+
+      <div fxLayout="row" fxLayoutAlign="start" style="margin: 8px 16px;">
+        <button mat-raised-button (click)="showDealEditor({ type: deals.type})">
+          <mat-icon aria-label="Example icon-button with a heart icon">plus_one</mat-icon>
+          add
+        </button>
+      </div>
+    </div> -->
+  </div>
+
+  <div [ngStyle]="{ display: newDeal ? 'block' : 'none' }">
+    <!-- <pre>{{ newDeal | json }}</pre> -->
+
+    <div *ngIf="newDeal" class="example-container">
+      <!-- <mat-form-field>
+        <input matInput placeholder="Input" [(ngModel)]="newDeal.">
+      </mat-form-field> -->
+
+      <mat-form-field>
+        <textarea matInput placeholder="Description" [(ngModel)]="newDeal.description"></textarea>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-select placeholder="Type" [(ngModel)]="newDeal.type">
+          <mat-option value="STORE">STORE</mat-option>
+          <mat-option value="RUNNER">RUNNER</mat-option>
+          <mat-option value="REQUEST">REQUEST</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field>
+        <input type="number" matInput placeholder="latitude" [(ngModel)]="newDeal.position.latitude">
+      </mat-form-field>
+
+      <mat-form-field>
+        <input type="number" matInput placeholder="longitude" [(ngModel)]="newDeal.position.longitude">
+      </mat-form-field>
+    </div>
+
+    <div fxLayout="row" fxLayoutAlign="end" style="margin: 8px 16px;">
+      <button mat-raised-button (click)="newDeal = null">
+        <mat-icon aria-label="cancel">cancel</mat-icon>
+        cancel
+      </button>
+
+      <button mat-raised-button (click)="save()">
+        <mat-icon aria-label="save">save</mat-icon>
+        save
+      </button>
+    </div>
+  </div>
+</div>
