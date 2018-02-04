@@ -1,0 +1,37 @@
+<div style="min-width: 320px; max-width: 900px;">
+  <!-- <pre>{{ deal | json }}</pre> -->
+
+  <div class="example-container">
+    <mat-form-field>
+      <textarea matInput placeholder="Description" [(ngModel)]="deal.description"></textarea>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-select placeholder="Type" [(ngModel)]="deal.type">
+        <mat-option value="STORE">STORE</mat-option>
+        <mat-option value="RUNNER">RUNNER</mat-option>
+        <mat-option value="REQUEST">REQUEST</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input type="number" matInput placeholder="latitude" [(ngModel)]="deal.position.latitude">
+    </mat-form-field>
+
+    <mat-form-field>
+      <input type="number" matInput placeholder="longitude" [(ngModel)]="deal.position.longitude">
+    </mat-form-field>
+  </div>
+
+  <div fxLayout="row" fxLayoutAlign="end" style="margin: 8px 16px;">
+    <button mat-raised-button (click)="dialogRef.close();">
+      <mat-icon aria-label="cancel">cancel</mat-icon>
+      cancel
+    </button>
+
+    <button mat-raised-button (click)="save()">
+      <mat-icon aria-label="save">save</mat-icon>
+      save
+    </button>
+  </div>
+</div>

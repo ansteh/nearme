@@ -18,6 +18,7 @@ export class DealsMapComponent implements OnInit, OnChanges {
 
   @Input() deals: any[];
   @Output() dealClicked = new EventEmitter();
+  @Output() clickCoordinate = new EventEmitter();
 
   private map: ol.Map;
   private markers: { [name: string]: Layer; } = {};
@@ -104,6 +105,13 @@ export class DealsMapComponent implements OnInit, OnChanges {
       if(feature){
         const deal = feature.get('deal');
         this.dealClicked.emit(deal);
+      } else {
+        const lonlat = ol.proj.transform(evt.coordinate, 'EPSG:3857', 'EPSG:4326');
+        
+        this.clickCoordinate.emit({
+          longitude: lonlat[0],
+          latitude: lonlat[1]
+        });
       }
     });
   }

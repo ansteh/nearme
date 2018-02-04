@@ -1,11 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewContainerRef, ViewEncapsulation } from '@angular/core';
+import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material';
+
+import { DealDialogComponent } from './deal-dialog/deal-dialog.component';
 
 import * as _ from 'lodash';
 
 @Component({
   selector: 'nearme-deals',
   templateUrl: './deals.component.html',
-  styleUrls: ['./deals.component.css']
+  styleUrls: ['./deals.component.css'],
+  // encapsulation: ViewEncapsulation.None
 })
 export class DealsComponent implements OnInit {
 
@@ -40,32 +44,51 @@ export class DealsComponent implements OnInit {
   }];
 
   public deals: any[];
-  public newDeal: any;
+  public position: any;
 
-  constructor() { }
+  private dialogRef: MatDialogRef<DealDialogComponent>;
+
+  constructor(public dialog: MatDialog,
+              public viewContainerRef: ViewContainerRef) { }
 
   ngOnInit() {
     this.deals = _.flatten([this.stores, this.runners, this.requests]);
   }
 
   showDealEditor(deal: any) {
-    this.newDeal = deal;
-
-    if(_.has(this.newDeal, 'position') === false) {
-      _.set(this.newDeal, 'position', {});
+    if(_.has(deal, 'position') === false) {
+      _.set(deal, 'position', this.position || {});
     }
 
-    console.log(this.newDeal);
+    console.log(deal);
+
+    this.openDialog(deal);
   }
 
-  save() {
-    if(_.has(this.newDeal, 'id')) {
+  save(deal: any) {
+    if(_.has(deal, 'id')) {
       this.deals = [...this.deals];
     } else {
-      this.deals = [...this.deals, this.newDeal];
+      this.deals = [...this.deals, deal];
     }
+  }
 
-    this.newDeal = null;
+  openDialog(deal: any) {
+    const config = new MatDialogConfig();
+    config.viewContainerRef = this.viewContainerRef;
+
+    this.dialogRef = this.dialog.open(DealDialogComponent, config);
+    this.dialogRef.componentInstance.client = { email: '' };
+    this.dialogRef.componentInstance.deal = deal;
+
+    this.dialogRef.afterClosed()
+      .subscribe((deal: any) => {
+        if(deal) {
+          this.save(deal);
+        }
+
+        this.position = null;
+      });
   }
 
 }

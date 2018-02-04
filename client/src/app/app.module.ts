@@ -14,6 +14,7 @@ import { AuthComponent } from './auth/auth.component';
 import { DealsComponent } from './deals/deals.component';
 import { DealCardComponent } from './deals/deal-card/deal-card.component';
 import { DealsMapComponent } from './deals/deals-map/deals-map.component';
+import { DealDialogComponent } from './deals/deal-dialog/deal-dialog.component';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import { DealsMapComponent } from './deals/deals-map/deals-map.component';
     AuthComponent,
     DealsComponent,
     DealCardComponent,
-    DealsMapComponent
+    DealsMapComponent,
+    DealDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -34,6 +36,9 @@ import { DealsMapComponent } from './deals/deals-map/deals-map.component';
     FlexLayoutModule,
 
     // StoreModule.forRoot(reducers, { metaReducers });
+  ],
+  entryComponents: [
+    DealDialogComponent
   ],
   providers: [],
   bootstrap: [AppComponent]
